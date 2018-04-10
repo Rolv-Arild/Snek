@@ -108,6 +108,10 @@ class Snek:
 
         :return: false if this move kills the snake
         """
+        if self.__heading__ == NONE:
+            self._debug_()
+            return True
+
         dx: int = {RIGHT: 1, LEFT: -1}.get(self.__heading__, 0)
         dy: int = {UP: 1, DOWN: -1}.get(self.__heading__, 0)
 
@@ -138,6 +142,15 @@ class Snek:
             self.move_count += 1
 
         return not is_kill
+
+    def _debug_(self):
+        out: list = [[0] * self.width] * self.height
+        i: int = 0
+        while i < 1000000:
+            self.__place_food___()
+            out[self.food_y][self.food_x] += 1
+            i += 1
+        print(out)
 
     def set_direction(self, direction: int) -> None:
         """Sets the direction of the snake"""

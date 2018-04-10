@@ -60,10 +60,17 @@ while True:
                         pygame.K_w: UP,
                         pygame.K_s: DOWN,
                         pygame.K_a: LEFT,
-                        pygame.K_d: RIGHT
-                    }.get(event.key, NONE)
-                    s.set_direction(move)  # TODO fix being able to turn on the spot
-                    move_lock = True
+                        pygame.K_d: RIGHT,
+                        pygame.K_UP: UP,
+                        pygame.K_DOWN: DOWN,
+                        pygame.K_LEFT: LEFT,
+                        pygame.K_RIGHT: RIGHT,
+                        pygame.K_p: NONE,
+                        pygame.K_ESCAPE: NONE
+                    }.get(event.key, None)
+                    if move is not None:
+                        s.set_direction(move)  # TODO fix being able to turn on the spot
+                        move_lock = True
 
         width, height = screen.get_size()
 
@@ -94,6 +101,6 @@ while True:
         screen.blit(txt2display, ((scrsize[0] + 1 - txt2display_w) // 2, 1))  # at top-center of screen
         pygame.display.update()
         if not changed:
-            clock.tick(10)  # limit to 60 fps
+            clock.tick(10)
     if s.length - snake_length > high_score:
         high_score = s.length - snake_length
